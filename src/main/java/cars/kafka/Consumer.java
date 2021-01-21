@@ -1,4 +1,4 @@
-package cars;
+package cars.kafka;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;

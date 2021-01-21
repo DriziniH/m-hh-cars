@@ -1,9 +1,11 @@
-package cars;
+package cars.kafka;
 
 import java.util.Properties;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+
+import cars.DataGenerator;
 
 public class Producer implements Runnable {
 
