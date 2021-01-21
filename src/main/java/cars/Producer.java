@@ -8,16 +8,20 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 public class Producer implements Runnable {
 
     Properties properties;
-    boolean active;
+    String topic;
+    String id;
+    String region;
+    boolean active = true;
     KafkaProducer<byte[], byte[]> producer;
     ProducerRecord<byte[], byte[]> producerRecord;
+    DataGenerator dataGenerator = new DataGenerator();
 
-    public Producer(Properties properties, String key, String value) {
+    public Producer(Properties properties, String topic, String region, String id) {
         this.properties = properties;
-        this.active = true;
-
+        this.topic = topic;
+        this.id = id;
+        this.region = region;
         this.producer = new KafkaProducer<byte[], byte[]>(properties);
-        this.producerRecord = new ProducerRecord<byte[], byte[]>("car-eu", key.getBytes(), value.getBytes());
     }
 
     public void terminateThread() {
@@ -28,6 +32,8 @@ public class Producer implements Runnable {
     public void run() {
         System.out.println("Started Producer Thread");
         while (active) {
+            String data = dataGenerator.getCarData(region, this.id);
+            this.producerRecord = new ProducerRecord<byte[], byte[]>(topic, data.getBytes());
             producer.send(producerRecord);
             try {
                 Thread.sleep(1000);
