@@ -8,6 +8,9 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import cars.DataGenerator;
 
 public class Producer implements Runnable {
+    /**
+     * Producer Thread to publish data to Kafka
+     */
 
     Properties properties;
     String topic;
@@ -32,6 +35,10 @@ public class Producer implements Runnable {
 
     @Override
     public void run() {
+        /**
+         * Generates random data with fixed car id based on the region and infinitly publishes data to kafka topic
+         */
+
         System.out.println("Started Producer Thread");
         while (active) {
             String data = dataGenerator.getCarData(region, this.id);

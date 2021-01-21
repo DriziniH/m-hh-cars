@@ -4,6 +4,10 @@ import java.util.List;
 import java.io.Serializable;
 
 public class CarUSA implements Serializable {
+    /**
+     * Data class for usa car data
+     */
+
     private String id;
 
     private String model;

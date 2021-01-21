@@ -10,6 +10,9 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 
 public class Consumer implements Runnable {
+    /**
+     * Consumer Thread to read data from kafka
+     */
 
     Properties properties;
     List<String> topics;
@@ -30,6 +33,10 @@ public class Consumer implements Runnable {
 
     @Override
     public void run() {
+        /**
+         * Infinitly reads kafka topic
+         */
+
         System.out.println("Started Consumer Thread");
         while (active) {
             ConsumerRecords<byte[], byte[]> records = consumer.poll(Duration.ofMillis(100));

@@ -13,9 +13,14 @@ import cars.data.*;
 public class DataGenerator {
 
     public String getCarData(String region, String id) {
+        /**
+         * Calls depending on region the method to create a data object for a car and
+         * uses ObjectMapper to create and return a json representation string of that
+         * object
+         */
 
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY); //Allow private fields to be serialized
+        objectMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY); // Allow private fields to be serialized
 
         try {
             switch (region.toLowerCase()) {
@@ -39,6 +44,9 @@ public class DataGenerator {
     }
 
     public CarEU generateRandomDataEU(String id) {
+        /**
+         * Creates and returns a CarEU object with random data
+         */
         Random rand = new Random();
 
         String model = Arrays.asList("A-Klasse", "B-Klasse", "C-Klasse", "E-Klasse", "G-Klasse").get(rand.nextInt(5));
@@ -89,6 +97,10 @@ public class DataGenerator {
     }
 
     public CarUSA generateRandomDataUSA(String id) {
+        /**
+         * Creates and returns a CarUSA object with random data
+         */
+
         Random rand = new Random();
 
         String model = Arrays.asList("A-Klasse", "B-Klasse", "C-Klasse", "E-Klasse", "G-Klasse").get(rand.nextInt(5));
@@ -139,6 +151,10 @@ public class DataGenerator {
     }
 
     public CarChina generateRandomDataChina(String id) {
+        /**
+         * Creates and returns a CarChina object with random data
+         */
+
         Random rand = new Random();
 
         String 模型 = "甲级";

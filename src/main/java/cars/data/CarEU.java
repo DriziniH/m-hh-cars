@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 public class CarEU implements Serializable {
+    /**
+     * Data class for eu car data
+     */
+
     private String id;
 
     private String model;

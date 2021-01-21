@@ -4,6 +4,10 @@ import java.util.List;
 import java.io.Serializable;
 
 public class CarChina implements Serializable {
+    /**
+     * Data class for china car data
+     */
+
     private String id;
 
     private String 模型;
@@ -28,7 +32,7 @@ public class CarChina implements Serializable {
             double 旅行_时候, double 油_层次, double 断裂_流畅_层次, double 燃料_层次, double 发动机, double 休息, double 胎压) {
 
         super();
-        
+
         this.id = id;
         this.模型 = 模型;
         this.标签 = 标签;
