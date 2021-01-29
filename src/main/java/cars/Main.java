@@ -21,24 +21,24 @@ public class Main {
         ExecutorService executor = Executors.newCachedThreadPool();
 
         //EU
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 1; i++) {
             String randId = UUID.randomUUID().toString();
             executor.execute(new Producer(properties, "car-eu", "eu", randId ));
             // executor.execute(new Consumer(properties, Arrays.asList("car-eu")));
         }
         
-        //USA
-        for (int i = 0; i < 20; i++) {
-            String randId = UUID.randomUUID().toString();
-            executor.execute(new Producer(properties, "car-usa", "usa", randId ));
-            // executor.execute(new Consumer(properties, Arrays.asList("car-eu")));
-        }
+        // //USA
+        // for (int i = 0; i < 20; i++) {
+        //     String randId = UUID.randomUUID().toString();
+        //     executor.execute(new Producer(properties, "car-usa", "usa", randId ));
+        //     // executor.execute(new Consumer(properties, Arrays.asList("car-eu")));
+        // }
         
-        //CHINA
-        for (int i = 0; i < 20; i++) {
-            String randId = UUID.randomUUID().toString();
-            executor.execute(new Producer(properties, "car-china", "china", randId ));
-            // executor.execute(new Consumer(properties, Arrays.asList("car-eu")));
-        }
+        // //CHINA
+        // for (int i = 0; i < 20; i++) {
+        //     String randId = UUID.randomUUID().toString();
+        //     executor.execute(new Producer(properties, "car-china", "china", randId ));
+        //     // executor.execute(new Consumer(properties, Arrays.asList("car-eu")));
+        // }
     }
 }

@@ -2,11 +2,14 @@ package cars.data;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Random;
 
 public class CarEU implements Serializable {
     /**
      * Data class for eu car data
      */
+
+    private static final long serialVersionUID = -3145577002152184851L;
 
     private String id;
 
@@ -55,20 +58,32 @@ public class CarEU implements Serializable {
     private String infotainmentService;
     private double infotainmentVolume;
 
-    public CarEU(String id, String model, List<String> labels, String fuel, double kilometerTotal,
-            double kilometerStart, double estimatedRange, double travelTimeTotal, double travelTime, double oilLevel,
-            double breakFluidLevel, double fuelLevel, boolean engineWarning, boolean breaksWarning,
-            boolean forwardCollisionWarning, boolean airbag, boolean serviceCall, double tirePressure,
-            boolean lightingSystemFailure, double temperatureEngine, double temperatureInside,
-            double temperatureOutside, double temperatureBreaks, double temperatureTires, double breakPower,
-            boolean breakActive, double gasPower, boolean gasActive, boolean light, boolean acc, double kmh, double rpm,
-            double oxygenLevel, double lat, double lon, boolean infotainmentOn, String infotainmentService,
-            double infotainmentVolume) {
-        super();
+    private double dirx;
+    private double diry;
+
+    public CarEU(String id, String model, List<String> labels, String fuel) {
         this.id = id;
         this.model = model;
         this.labels = labels;
         this.fuel = fuel;
+
+        // Initialze car direction
+        Random rand = new Random();
+        this.dirx = rand.nextDouble() * (rand.nextBoolean() ? -1 : 1);
+        this.diry = rand.nextDouble() * (rand.nextBoolean() ? -1 : 1);
+
+        this.lat = rand.nextInt(10) + 44 + rand.nextDouble();
+        this.lon = rand.nextInt(32) - 2 + rand.nextDouble();
+    };
+
+    public void setValues(double kilometerTotal, double kilometerStart, double estimatedRange, double travelTimeTotal,
+            double travelTime, double oilLevel, double breakFluidLevel, double fuelLevel, boolean engineWarning,
+            boolean breaksWarning, boolean forwardCollisionWarning, boolean airbag, boolean serviceCall,
+            double tirePressure, boolean lightingSystemFailure, double temperatureEngine, double temperatureInside,
+            double temperatureOutside, double temperatureBreaks, double temperatureTires, double breakPower,
+            boolean breakActive, double gasPower, boolean gasActive, boolean light, boolean acc, double kmh, double rpm,
+            double oxygenLevel, boolean infotainmentOn, String infotainmentService, double infotainmentVolume) {
+
         this.kilometerTotal = kilometerTotal;
         this.kilometerStart = kilometerStart;
         this.estimatedRange = estimatedRange;
@@ -98,11 +113,378 @@ public class CarEU implements Serializable {
         this.kmh = kmh;
         this.rpm = rpm;
         this.oxygenLevel = oxygenLevel;
-        this.lat = lat;
-        this.lon = lon;
         this.infotainmentOn = infotainmentOn;
         this.infotainmentService = infotainmentService;
         this.infotainmentVolume = infotainmentVolume;
+    }
+
+    public void setPos(double lat, double lon) {
+        this.lat = lat;
+        this.lon = lon;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getModel() {
+        return this.model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public List<String> getLabels() {
+        return this.labels;
+    }
+
+    public void setLabels(List<String> labels) {
+        this.labels = labels;
+    }
+
+    public String getFuel() {
+        return this.fuel;
+    }
+
+    public void setFuel(String fuel) {
+        this.fuel = fuel;
+    }
+
+    public double getKilometerTotal() {
+        return this.kilometerTotal;
+    }
+
+    public void setKilometerTotal(double kilometerTotal) {
+        this.kilometerTotal = kilometerTotal;
+    }
+
+    public double getKilometerStart() {
+        return this.kilometerStart;
+    }
+
+    public void setKilometerStart(double kilometerStart) {
+        this.kilometerStart = kilometerStart;
+    }
+
+    public double getEstimatedRange() {
+        return this.estimatedRange;
+    }
+
+    public void setEstimatedRange(double estimatedRange) {
+        this.estimatedRange = estimatedRange;
+    }
+
+    public double getTravelTimeTotal() {
+        return this.travelTimeTotal;
+    }
+
+    public void setTravelTimeTotal(double travelTimeTotal) {
+        this.travelTimeTotal = travelTimeTotal;
+    }
+
+    public double getTravelTime() {
+        return this.travelTime;
+    }
+
+    public void setTravelTime(double travelTime) {
+        this.travelTime = travelTime;
+    }
+
+    public double getOilLevel() {
+        return this.oilLevel;
+    }
+
+    public void setOilLevel(double oilLevel) {
+        this.oilLevel = oilLevel;
+    }
+
+    public double getBreakFluidLevel() {
+        return this.breakFluidLevel;
+    }
+
+    public void setBreakFluidLevel(double breakFluidLevel) {
+        this.breakFluidLevel = breakFluidLevel;
+    }
+
+    public double getFuelLevel() {
+        return this.fuelLevel;
+    }
+
+    public void setFuelLevel(double fuelLevel) {
+        this.fuelLevel = fuelLevel;
+    }
+
+    public boolean isEngineWarning() {
+        return this.engineWarning;
+    }
+
+    public boolean getEngineWarning() {
+        return this.engineWarning;
+    }
+
+    public void setEngineWarning(boolean engineWarning) {
+        this.engineWarning = engineWarning;
+    }
+
+    public boolean isBreaksWarning() {
+        return this.breaksWarning;
+    }
+
+    public boolean getBreaksWarning() {
+        return this.breaksWarning;
+    }
+
+    public void setBreaksWarning(boolean breaksWarning) {
+        this.breaksWarning = breaksWarning;
+    }
+
+    public boolean isForwardCollisionWarning() {
+        return this.forwardCollisionWarning;
+    }
+
+    public boolean getForwardCollisionWarning() {
+        return this.forwardCollisionWarning;
+    }
+
+    public void setForwardCollisionWarning(boolean forwardCollisionWarning) {
+        this.forwardCollisionWarning = forwardCollisionWarning;
+    }
+
+    public boolean isAirbag() {
+        return this.airbag;
+    }
+
+    public boolean getAirbag() {
+        return this.airbag;
+    }
+
+    public void setAirbag(boolean airbag) {
+        this.airbag = airbag;
+    }
+
+    public boolean isServiceCall() {
+        return this.serviceCall;
+    }
+
+    public boolean getServiceCall() {
+        return this.serviceCall;
+    }
+
+    public void setServiceCall(boolean serviceCall) {
+        this.serviceCall = serviceCall;
+    }
+
+    public double getTirePressure() {
+        return this.tirePressure;
+    }
+
+    public void setTirePressure(double tirePressure) {
+        this.tirePressure = tirePressure;
+    }
+
+    public boolean isLightingSystemFailure() {
+        return this.lightingSystemFailure;
+    }
+
+    public boolean getLightingSystemFailure() {
+        return this.lightingSystemFailure;
+    }
+
+    public void setLightingSystemFailure(boolean lightingSystemFailure) {
+        this.lightingSystemFailure = lightingSystemFailure;
+    }
+
+    public double getTemperatureEngine() {
+        return this.temperatureEngine;
+    }
+
+    public void setTemperatureEngine(double temperatureEngine) {
+        this.temperatureEngine = temperatureEngine;
+    }
+
+    public double getTemperatureInside() {
+        return this.temperatureInside;
+    }
+
+    public void setTemperatureInside(double temperatureInside) {
+        this.temperatureInside = temperatureInside;
+    }
+
+    public double getTemperatureOutside() {
+        return this.temperatureOutside;
+    }
+
+    public void setTemperatureOutside(double temperatureOutside) {
+        this.temperatureOutside = temperatureOutside;
+    }
+
+    public double getTemperatureBreaks() {
+        return this.temperatureBreaks;
+    }
+
+    public void setTemperatureBreaks(double temperatureBreaks) {
+        this.temperatureBreaks = temperatureBreaks;
+    }
+
+    public double getTemperatureTires() {
+        return this.temperatureTires;
+    }
+
+    public void setTemperatureTires(double temperatureTires) {
+        this.temperatureTires = temperatureTires;
+    }
+
+    public double getBreakPower() {
+        return this.breakPower;
+    }
+
+    public void setBreakPower(double breakPower) {
+        this.breakPower = breakPower;
+    }
+
+    public boolean isBreakActive() {
+        return this.breakActive;
+    }
+
+    public boolean getBreakActive() {
+        return this.breakActive;
+    }
+
+    public void setBreakActive(boolean breakActive) {
+        this.breakActive = breakActive;
+    }
+
+    public double getGasPower() {
+        return this.gasPower;
+    }
+
+    public void setGasPower(double gasPower) {
+        this.gasPower = gasPower;
+    }
+
+    public boolean isGasActive() {
+        return this.gasActive;
+    }
+
+    public boolean getGasActive() {
+        return this.gasActive;
+    }
+
+    public void setGasActive(boolean gasActive) {
+        this.gasActive = gasActive;
+    }
+
+    public boolean isLight() {
+        return this.light;
+    }
+
+    public boolean getLight() {
+        return this.light;
+    }
+
+    public void setLight(boolean light) {
+        this.light = light;
+    }
+
+    public boolean isAcc() {
+        return this.acc;
+    }
+
+    public boolean getAcc() {
+        return this.acc;
+    }
+
+    public void setAcc(boolean acc) {
+        this.acc = acc;
+    }
+
+    public double getKmh() {
+        return this.kmh;
+    }
+
+    public void setKmh(double kmh) {
+        this.kmh = kmh;
+    }
+
+    public double getRpm() {
+        return this.rpm;
+    }
+
+    public void setRpm(double rpm) {
+        this.rpm = rpm;
+    }
+
+    public double getOxygenLevel() {
+        return this.oxygenLevel;
+    }
+
+    public void setOxygenLevel(double oxygenLevel) {
+        this.oxygenLevel = oxygenLevel;
+    }
+
+    public double getLat() {
+        return this.lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return this.lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
+    public boolean isInfotainmentOn() {
+        return this.infotainmentOn;
+    }
+
+    public boolean getInfotainmentOn() {
+        return this.infotainmentOn;
+    }
+
+    public void setInfotainmentOn(boolean infotainmentOn) {
+        this.infotainmentOn = infotainmentOn;
+    }
+
+    public String getInfotainmentService() {
+        return this.infotainmentService;
+    }
+
+    public void setInfotainmentService(String infotainmentService) {
+        this.infotainmentService = infotainmentService;
+    }
+
+    public double getInfotainmentVolume() {
+        return this.infotainmentVolume;
+    }
+
+    public void setInfotainmentVolume(double infotainmentVolume) {
+        this.infotainmentVolume = infotainmentVolume;
+    }
+
+    public double getDirx() {
+        return this.dirx;
+    }
+
+    public void setDirx(double dirx) {
+        this.dirx = dirx;
+    }
+
+    public double getDiry() {
+        return this.diry;
+    }
+
+    public void setDiry(double diry) {
+        this.diry = diry;
     }
 
 }

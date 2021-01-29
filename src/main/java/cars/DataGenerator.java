@@ -12,49 +12,64 @@ import cars.data.*;
 
 public class DataGenerator {
 
-    public String getCarData(String region, String id) {
+    public String getCarData(Object car) {
         /**
          * Calls depending on region the method to create a data object for a car and
          * uses ObjectMapper to create and return a json representation string of that
          * object
          */
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY); // Allow private fields to be serialized
-
         try {
-            switch (region.toLowerCase()) {
-                case "eu":
-                    CarEU carEU = generateRandomDataEU(id);
-                    return objectMapper.writeValueAsString(carEU);
-                case "usa":
-                    CarUSA carUSA = generateRandomDataUSA(id);
-                    return objectMapper.writeValueAsString(carUSA);
-                case "china":
-                    CarChina carChina = generateRandomDataChina(id);
-                    return objectMapper.writeValueAsString(carChina);
-                default:
-                    System.out.println("Region not available: " + region);
-                    return "";
+            if (car.getClass() == CarEU.class) {
+                car = driveInDirectionEU((CarEU) car);
+                return generateRandomDataEU((CarEU) car);
+            } else if (car.getClass() == CarUSA.class) {
+                car = driveInDirectionUSA((CarUSA) car);
+                return generateRandomDataUSA((CarUSA) car);
+            } else if (car.getClass() == CarChina.class) {
+                return generateRandomDataChina((CarChina) car);
+            } else {
+                return "";
             }
+
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return "";
         }
     }
 
-    public CarEU generateRandomDataEU(String id) {
+    public CarEU driveInDirectionEU(CarEU carEu) {
         /**
-         * Creates and returns a CarEU object with random data
+         * Generates random double in given direction
          */
+        double lat = carEu.getLat() + carEu.getDirx() * 0.001;
+        double lon = carEu.getLon() + carEu.getDiry() * 0.001;
+        carEu.setPos(lat, lon);
+        return carEu;
+    }
+
+    public CarUSA driveInDirectionUSA(CarUSA carUsa) {
+        /**
+         * Generates random double in given direction
+         */
+        double lat = carUsa.getLat() + carUsa.getDirx() * 0.001;
+        double lon = carUsa.getLon() + carUsa.getDiry() * 0.001;
+        carUsa.setPos(lat, lon);
+        return carUsa;
+    }
+
+    public String generateRandomDataEU(CarEU carEu) throws JsonProcessingException {
+        /**
+         * Creates random data for CarEU object, tweeks lat and lon params and returns
+         * object as json string
+         */
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY); // Allow private fields to be serialized
+
         Random rand = new Random();
 
-        String model = Arrays.asList("A-Klasse", "B-Klasse", "C-Klasse", "E-Klasse", "G-Klasse").get(rand.nextInt(5));
-        List<String> labels = Arrays.asList(model, "Benzer");
-        String fuel = Arrays.asList("gasonline", "diesel", "gas", "electric").get(rand.nextInt(4));
         double kilometerTotal = rand.nextInt(100000) + 2000.0 + rand.nextDouble();
         double kilometerStart = rand.nextInt(500) + rand.nextDouble();
-
         double estimatedRange = rand.nextInt(500) + rand.nextDouble();
         double travelTimeTotal = rand.nextInt(100000000);
         double travelTime = rand.nextInt(500);
@@ -82,33 +97,33 @@ public class DataGenerator {
         double kmh = rand.nextInt(200) + rand.nextDouble();
         double rpm = rand.nextInt(6000) + rand.nextDouble();
         double oxygenLevel = rand.nextInt(100) + rand.nextDouble();
-        double lat = rand.nextInt(7) + 38 + rand.nextDouble();
-        double lon = rand.nextInt(45) - 78 + rand.nextDouble();
         boolean infotainmentOn = rand.nextBoolean();
         String infotainmentService = Arrays.asList("Navigation", "FM", "Mobile Phone", "Information System")
                 .get(rand.nextInt(4));
         double infotainmentVolume = rand.nextInt(100) + rand.nextDouble();
 
-        return new CarEU(id, model, labels, fuel, kilometerTotal, kilometerStart, estimatedRange, travelTimeTotal,
-                travelTime, oilLevel, breakFluidLevel, fuelLevel, engineWarning, breaksWarning, forwardCollisionWarning,
-                airbag, serviceCall, tirePressure, lightingSystemFailure, temperatureEngine, temperatureInside,
-                temperatureOutside, temperatureBreaks, temperatureTires, breakPower, breakActive, gasPower, gasActive,
-                light, acc, kmh, rpm, oxygenLevel, lat, lon, infotainmentOn, infotainmentService, infotainmentVolume);
+        carEu.setValues(kilometerTotal, kilometerStart, estimatedRange, travelTimeTotal, travelTime, oilLevel,
+                breakFluidLevel, fuelLevel, engineWarning, breaksWarning, forwardCollisionWarning, airbag, serviceCall,
+                tirePressure, lightingSystemFailure, temperatureEngine, temperatureInside, temperatureOutside,
+                temperatureBreaks, temperatureTires, breakPower, breakActive, gasPower, gasActive, light, acc, kmh, rpm,
+                oxygenLevel, infotainmentOn, infotainmentService, infotainmentVolume);
+
+        return objectMapper.writeValueAsString(carEu);
+
     }
 
-    public CarUSA generateRandomDataUSA(String id) {
+    public String generateRandomDataUSA(CarUSA carUsa) throws JsonProcessingException {
         /**
-         * Creates and returns a CarUSA object with random data
+         * Creates random data for CarUSA object, tweeks lat and lon params and returns
+         * object as json string
          */
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY); // Allow private fields to be serialized
 
         Random rand = new Random();
 
-        String model = Arrays.asList("A-Klasse", "B-Klasse", "C-Klasse", "E-Klasse", "G-Klasse").get(rand.nextInt(5));
-        List<String> labels = Arrays.asList(model, "Benzer");
-        String fuel = Arrays.asList("gasonline", "diesel", "gas", "electric").get(rand.nextInt(4));
         double mileageTotal = rand.nextInt(100000) + 2000.0 + rand.nextDouble();
         double mileageStart = rand.nextInt(500) + rand.nextDouble();
-
         double estimatedRange = rand.nextInt(500) + rand.nextDouble();
         double travelTimeTotal = rand.nextInt(100000000);
         double travelTime = rand.nextInt(500);
@@ -136,24 +151,27 @@ public class DataGenerator {
         double mph = rand.nextInt(200) + rand.nextDouble();
         double rpm = rand.nextInt(6000) + rand.nextDouble();
         double oxygenLevel = rand.nextInt(100) + rand.nextDouble();
-        double lat = rand.nextInt(7) + 38 + rand.nextDouble();
-        double lon = rand.nextInt(45) - 78 + rand.nextDouble();
         boolean infotainmentOn = rand.nextBoolean();
         String infotainmentService = Arrays.asList("Navigation", "FM", "Mobile Phone", "Information System")
                 .get(rand.nextInt(4));
         double infotainmentVolume = rand.nextInt(100) + rand.nextDouble();
 
-        return new CarUSA(id, model, labels, fuel, mileageTotal, mileageStart, estimatedRange, travelTimeTotal,
-                travelTime, oilLevel, breakFluidLevel, fuelLevel, engineWarning, breaksWarning, forwardCollisionWarning,
-                airbag, serviceCall, tirePressure, lightingSystemFailure, temperatureEngine, temperatureInside,
-                temperatureOutside, temperatureBreaks, temperatureTires, breakPower, breakActive, gasPower, gasActive,
-                light, acc, mph, rpm, oxygenLevel, lat, lon, infotainmentOn, infotainmentService, infotainmentVolume);
+        carUsa.setValues(mileageTotal, mileageStart, estimatedRange, travelTimeTotal, travelTime, oilLevel,
+                breakFluidLevel, fuelLevel, engineWarning, breaksWarning, forwardCollisionWarning, airbag, serviceCall,
+                tirePressure, lightingSystemFailure, temperatureEngine, temperatureInside, temperatureOutside,
+                temperatureBreaks, temperatureTires, breakPower, breakActive, gasPower, gasActive, light, acc, mph, rpm,
+                oxygenLevel, infotainmentOn, infotainmentService, infotainmentVolume);
+
+        return objectMapper.writeValueAsString(carUsa);
     }
 
-    public CarChina generateRandomDataChina(String id) {
+    public String generateRandomDataChina(CarChina carChina) throws JsonProcessingException {
         /**
-         * Creates and returns a CarChina object with random data
+         * Creates random data for CarChina object, tweeks lat and lon params and
+         * returns object as json string
          */
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY); // Allow private fields to be serialized
 
         Random rand = new Random();
 
@@ -171,6 +189,7 @@ public class DataGenerator {
         double 休息 = rand.nextInt(100) + rand.nextDouble();
         double 胎压 = rand.nextInt(100) + rand.nextDouble();
 
-        return new CarChina(id, 模型, 标签, 燃料, 千米_总, 千米, 旅行_时候_总, 旅行_时候, 油_层次, 断裂_流畅_层次, 燃料_层次, 发动机, 休息, 胎压);
+        carChina.setValues(模型, 标签, 燃料, 千米_总, 千米, 旅行_时候_总, 旅行_时候, 油_层次, 断裂_流畅_层次, 燃料_层次, 发动机, 休息, 胎压);
+        return objectMapper.writeValueAsString(carChina);
     }
 }

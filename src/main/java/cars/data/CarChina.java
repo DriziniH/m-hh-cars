@@ -1,12 +1,15 @@
 package cars.data;
 
 import java.util.List;
+import java.util.Random;
 import java.io.Serializable;
 
 public class CarChina implements Serializable {
     /**
      * Data class for china car data
      */
+
+    private static final long serialVersionUID = 8077655270295790519L;
 
     private String id;
 
@@ -28,12 +31,17 @@ public class CarChina implements Serializable {
 
     private double 胎压;
 
-    public CarChina(String id, String 模型, List<String> 标签, String 燃料, double 千米_总, double 千米, double 旅行_时候_总,
-            double 旅行_时候, double 油_层次, double 断裂_流畅_层次, double 燃料_层次, double 发动机, double 休息, double 胎压) {
 
-        super();
-
+    public CarChina(String id) {
         this.id = id;
+
+    }
+
+ 
+
+    public void setValues(String 模型, List<String> 标签, String 燃料, double 千米_总, double 千米, double 旅行_时候_总, double 旅行_时候,
+            double 油_层次, double 断裂_流畅_层次, double 燃料_层次, double 发动机, double 休息, double 胎压) {
+
         this.模型 = 模型;
         this.标签 = 标签;
         this.燃料 = 燃料;
