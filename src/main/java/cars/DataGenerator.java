@@ -27,6 +27,7 @@ public class DataGenerator {
                 car = driveInDirectionUSA((CarUSA) car);
                 return generateRandomDataUSA((CarUSA) car);
             } else if (car.getClass() == CarChina.class) {
+                car = driveInDirectionChina((CarChina) car);
                 return generateRandomDataChina((CarChina) car);
             } else {
                 return "";
@@ -42,8 +43,8 @@ public class DataGenerator {
         /**
          * Generates random double in given direction
          */
-        double lat = carEu.getLat() + carEu.getDirx() * 0.001;
-        double lon = carEu.getLon() + carEu.getDiry() * 0.001;
+        double lat = carEu.lat + carEu.dirX * 0.001;
+        double lon = carEu.lon + carEu.dirY * 0.001;
         carEu.setPos(lat, lon);
         return carEu;
     }
@@ -52,11 +53,22 @@ public class DataGenerator {
         /**
          * Generates random double in given direction
          */
-        double lat = carUsa.getLat() + carUsa.getDirx() * 0.001;
-        double lon = carUsa.getLon() + carUsa.getDiry() * 0.001;
+        double lat = carUsa.lat + carUsa.dirX * 0.001;
+        double lon = carUsa.lon + carUsa.dirY * 0.001;
         carUsa.setPos(lat, lon);
         return carUsa;
     }
+
+    public CarChina driveInDirectionChina(CarChina carChina) {
+        /**
+         * Generates random double in given direction
+         */
+        double lat = carChina.lat + carChina.dirX * 0.001;
+        double lon = carChina.lon + carChina.dirY * 0.001;
+        carChina.setPos(lat, lon);
+        return carChina;
+    }
+  
 
     public String generateRandomDataEU(CarEU carEu) throws JsonProcessingException {
         /**
