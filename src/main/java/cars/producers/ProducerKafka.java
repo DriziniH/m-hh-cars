@@ -1,4 +1,4 @@
-package cars.kafka;
+package cars.producers;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +11,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import cars.DataGenerator;
 import cars.data.*;
 
-public class Producer implements Runnable {
+public class ProducerKafka implements Runnable {
     /**
      * Producer Thread to publish data to Kafka
      */
@@ -25,7 +25,7 @@ public class Producer implements Runnable {
     ProducerRecord<byte[], byte[]> producerRecord;
     DataGenerator dataGenerator = new DataGenerator();
 
-    public Producer(Properties properties, String topic, String region, String id) {
+    public ProducerKafka(Properties properties, String topic, String region, String id) {
         this.properties = properties;
         this.topic = topic;
         this.id = id;
@@ -71,7 +71,7 @@ public class Producer implements Runnable {
 
         while (active) {
 
-            String data = dataGenerator.getCarData(car);
+            String data = dataGenerator.getCarData(car); 
 
             this.producerRecord = new ProducerRecord<byte[], byte[]>(this.topic, data.getBytes());
             producer.send(producerRecord);
