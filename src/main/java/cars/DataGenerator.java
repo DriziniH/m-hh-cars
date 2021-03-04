@@ -26,9 +26,6 @@ public class DataGenerator {
             } else if (car.getClass() == CarUSA.class) {
                 car = driveInDirectionUSA((CarUSA) car);
                 return generateRandomDataUSA((CarUSA) car);
-            } else if (car.getClass() == CarChina.class) {
-                car = driveInDirectionChina((CarChina) car);
-                return generateRandomDataChina((CarChina) car);
             } else {
                 return "";
             }
@@ -58,17 +55,6 @@ public class DataGenerator {
         carUsa.setPos(lat, lon);
         return carUsa;
     }
-
-    public CarChina driveInDirectionChina(CarChina carChina) {
-        /**
-         * Generates random double in given direction
-         */
-        double lat = carChina.lat + carChina.dirX * 0.001;
-        double lon = carChina.lon + carChina.dirY * 0.001;
-        carChina.setPos(lat, lon);
-        return carChina;
-    }
-  
 
     public String generateRandomDataEU(CarEU carEu) throws JsonProcessingException {
         /**
@@ -175,33 +161,5 @@ public class DataGenerator {
                 oxygenLevel, infotainmentOn, infotainmentService, infotainmentVolume);
 
         return objectMapper.writeValueAsString(carUsa);
-    }
-
-    public String generateRandomDataChina(CarChina carChina) throws JsonProcessingException {
-        /**
-         * Creates random data for CarChina object, tweeks lat and lon params and
-         * returns object as json string
-         */
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY); // Allow private fields to be serialized
-
-        Random rand = new Random();
-
-        String 模型 = "甲级";
-        List<String> 标签 = Arrays.asList("本泽");
-        String 燃料 = "柴油";
-        double 千米_总 = rand.nextInt(100) + rand.nextDouble();
-        double 千米 = rand.nextInt(100) + rand.nextDouble();
-        double 旅行_时候_总 = rand.nextInt(100) + rand.nextDouble();
-        double 旅行_时候 = rand.nextInt(100) + rand.nextDouble();
-        double 油_层次 = rand.nextInt(100) + rand.nextDouble();
-        double 断裂_流畅_层次 = rand.nextInt(100) + rand.nextDouble();
-        double 燃料_层次 = rand.nextInt(100) + rand.nextDouble();
-        double 发动机 = rand.nextInt(100) + rand.nextDouble();
-        double 休息 = rand.nextInt(100) + rand.nextDouble();
-        double 胎压 = rand.nextInt(100) + rand.nextDouble();
-
-        carChina.setValues(模型, 标签, 燃料, 千米_总, 千米, 旅行_时候_总, 旅行_时候, 油_层次, 断裂_流畅_层次, 燃料_层次, 发动机, 休息, 胎压);
-        return objectMapper.writeValueAsString(carChina);
     }
 }

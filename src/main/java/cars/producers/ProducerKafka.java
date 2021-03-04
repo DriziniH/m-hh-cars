@@ -61,9 +61,6 @@ public class ProducerKafka implements Runnable {
             case "usa":
                 car = new CarUSA(id, model, labels, fuel);
                 break;
-            case "china":
-                car = new CarChina(id);
-                break;
             default:
                 System.out.println("Region not available: " + region);
                 return;
@@ -71,7 +68,7 @@ public class ProducerKafka implements Runnable {
 
         while (active) {
 
-            String data = dataGenerator.getCarData(car); 
+            String data = dataGenerator.getCarData(car);
 
             this.producerRecord = new ProducerRecord<byte[], byte[]>(this.topic, data.getBytes());
             producer.send(producerRecord);
