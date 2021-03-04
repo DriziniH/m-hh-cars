@@ -11,62 +11,33 @@ public class CarEU extends Car implements Serializable {
 
     private static final long serialVersionUID = -3145577002152184851L;
 
-    public String model;
-    public List<String> labels;
-    public String fuel;
-
     public double kilometerTotal;
     public double kilometerStart;
-    public double estimatedRange;
-    public double travelTimeTotal;
-    public double travelTime;
-
-    public double oilLevel;
-    public double breakFluidLevel;
-    public double fuelLevel;
-
-    public boolean engineWarning;
-    public boolean breaksWarning;
-    public boolean forwardCollisionWarning;
-    public boolean airbag;
-    public boolean serviceCall;
-    public double tirePressure;
-    public boolean lightingSystemFailure;
-
-    public double temperatureEngine;
-    public double temperatureInside;
-    public double temperatureOutside;
-    public double temperatureBreaks;
-    public double temperatureTires;
-
-    public double breakPower;
-    public boolean breakActive;
-
-    public double gasPower;
-    public boolean gasActive;
-    public boolean light;
-    public boolean acc;
     public double kmh;
-    public double rpm;
-    public double oxygenLevel;
-
-    public boolean infotainmentOn;
-    public String infotainmentService;
-    public double infotainmentVolume;
+    public double consumptionKm;
+    public double co2Km;
 
     public CarEU(String id, String model, List<String> labels, String fuel) {
-        super.id = id;
+        this.id = id;
         this.model = model;
         this.labels = labels;
         this.fuel = fuel;
 
-        // Initialze car direction
+        // Initialize car direction
         Random rand = new Random();
-        super.dirX = rand.nextDouble() * (rand.nextBoolean() ? -1 : 1);
-        super.dirY = rand.nextDouble() * (rand.nextBoolean() ? -1 : 1);
+        this.dirX = rand.nextDouble() * (rand.nextBoolean() ? -1 : 1);
+        this.dirY = rand.nextDouble() * (rand.nextBoolean() ? -1 : 1);
 
-        super.lat = rand.nextInt(10) + 44 + rand.nextDouble();
-        super.lon = rand.nextInt(32) - 2 + rand.nextDouble();
+        this.lat = rand.nextInt(10) + 44 + rand.nextDouble();
+        this.lon = rand.nextInt(32) - 2 + rand.nextDouble();
+
+        this.drugged = rand.nextBoolean();
+        this.breaksHealth = rand.nextInt(100) + rand.nextDouble();
+        this.engineHealth = rand.nextInt(100) + rand.nextDouble();
+        this.tireHealth = rand.nextInt(100) + rand.nextDouble();
+        this.mufflerHealth = rand.nextInt(100) + rand.nextDouble();
+        this.gearsHealth = rand.nextInt(100) + rand.nextDouble();
+        this.batteryHealth = rand.nextInt(100) + rand.nextDouble();
     };
 
     public void setValues(double kilometerTotal, double kilometerStart, double estimatedRange, double travelTimeTotal,
@@ -75,7 +46,9 @@ public class CarEU extends Car implements Serializable {
             double tirePressure, boolean lightingSystemFailure, double temperatureEngine, double temperatureInside,
             double temperatureOutside, double temperatureBreaks, double temperatureTires, double breakPower,
             boolean breakActive, double gasPower, boolean gasActive, boolean light, boolean acc, double kmh, double rpm,
-            double oxygenLevel, boolean infotainmentOn, String infotainmentService, double infotainmentVolume) {
+            double oxygenLevel, boolean infotainmentOn, String infotainmentService, double infotainmentVolume,
+            double consumptionKm, double co2Km, boolean geoChip, boolean rapidSteeringWheelMovement,
+            boolean drivingOnMarkers) {
 
         this.kilometerTotal = kilometerTotal;
         this.kilometerStart = kilometerStart;
@@ -109,11 +82,16 @@ public class CarEU extends Car implements Serializable {
         this.infotainmentOn = infotainmentOn;
         this.infotainmentService = infotainmentService;
         this.infotainmentVolume = infotainmentVolume;
+        this.consumptionKm = consumptionKm;
+        this.co2Km = co2Km;
+        this.geoChip = geoChip;
+        this.rapidSteeringWheelMovement = rapidSteeringWheelMovement;
+        this.drivingOnMarkers = drivingOnMarkers;
     }
 
     @Override
     public void setPos(double lat, double lon) {
-        super.lat = lat;
-        super.lon = lon;
+        this.lat = lat;
+        this.lon = lon;
     }
 }

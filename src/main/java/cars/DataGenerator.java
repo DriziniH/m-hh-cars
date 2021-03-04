@@ -6,7 +6,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Random;
 import java.util.Arrays;
-import java.util.List;
 
 import cars.data.*;
 
@@ -100,11 +99,20 @@ public class DataGenerator {
                 .get(rand.nextInt(4));
         double infotainmentVolume = rand.nextInt(100) + rand.nextDouble();
 
+        double consumptionKm = rand.nextInt(15) + 5 + rand.nextDouble();
+        double co2Km = consumptionKm * 24;
+        boolean geoChip = rand.nextBoolean();
+        boolean rapidSteeringWheelMovement = rand.nextBoolean();
+        boolean drivingOnMarkers = rand.nextBoolean();
+
         carEu.setValues(kilometerTotal, kilometerStart, estimatedRange, travelTimeTotal, travelTime, oilLevel,
                 breakFluidLevel, fuelLevel, engineWarning, breaksWarning, forwardCollisionWarning, airbag, serviceCall,
                 tirePressure, lightingSystemFailure, temperatureEngine, temperatureInside, temperatureOutside,
                 temperatureBreaks, temperatureTires, breakPower, breakActive, gasPower, gasActive, light, acc, kmh, rpm,
-                oxygenLevel, infotainmentOn, infotainmentService, infotainmentVolume);
+                oxygenLevel, infotainmentOn, infotainmentService, infotainmentVolume, consumptionKm, co2Km, geoChip,
+                rapidSteeringWheelMovement, drivingOnMarkers
+
+        );
 
         return objectMapper.writeValueAsString(carEu);
 
@@ -154,11 +162,18 @@ public class DataGenerator {
                 .get(rand.nextInt(4));
         double infotainmentVolume = rand.nextInt(100) + rand.nextDouble();
 
+        double consumptionMile = rand.nextInt(15) + 5 + rand.nextDouble();
+        double co2Mile = consumptionMile * 24;
+        boolean geoChip = rand.nextBoolean();
+        boolean rapidSteeringWheelMovement = rand.nextBoolean();
+        boolean drivingOnMarkers = rand.nextBoolean();
+
         carUsa.setValues(mileageTotal, mileageStart, estimatedRange, travelTimeTotal, travelTime, oilLevel,
                 breakFluidLevel, fuelLevel, engineWarning, breaksWarning, forwardCollisionWarning, airbag, serviceCall,
                 tirePressure, lightingSystemFailure, temperatureEngine, temperatureInside, temperatureOutside,
                 temperatureBreaks, temperatureTires, breakPower, breakActive, gasPower, gasActive, light, acc, mph, rpm,
-                oxygenLevel, infotainmentOn, infotainmentService, infotainmentVolume);
+                oxygenLevel, infotainmentOn, infotainmentService, infotainmentVolume, consumptionMile, co2Mile, geoChip,
+                rapidSteeringWheelMovement, drivingOnMarkers);
 
         return objectMapper.writeValueAsString(carUsa);
     }
