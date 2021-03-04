@@ -72,6 +72,13 @@ public class ProducerKafka implements Runnable {
 
             this.producerRecord = new ProducerRecord<byte[], byte[]>(this.topic, data.getBytes());
             producer.send(producerRecord);
+
+            producer.send(producerRecord, (metadata, exception) -> {
+                if (metadata == null) {
+                    exception.printStackTrace();
+                }
+            });
+
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
