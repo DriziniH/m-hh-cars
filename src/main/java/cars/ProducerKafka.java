@@ -1,4 +1,4 @@
-package cars.producers;
+package cars;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +8,6 @@ import java.util.Random;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
-import cars.DataGenerator;
 import cars.data.*;
 
 public class ProducerKafka implements Runnable {

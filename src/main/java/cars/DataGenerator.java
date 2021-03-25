@@ -99,7 +99,7 @@ public class DataGenerator {
                 .get(rand.nextInt(4));
         double infotainmentVolume = rand.nextInt(100) + rand.nextDouble();
 
-        double consumptionKm = rand.nextInt(15) + 5 + rand.nextDouble();
+        double consumptionKm = rand.nextInt(10) + 5 + rand.nextDouble();
         double co2Km = consumptionKm * 24;
         boolean geoChip = rand.nextBoolean();
         boolean rapidSteeringWheelMovement = rand.nextBoolean();
@@ -162,7 +162,7 @@ public class DataGenerator {
                 .get(rand.nextInt(4));
         double infotainmentVolume = rand.nextInt(100) + rand.nextDouble();
 
-        double consumptionMile = rand.nextInt(15) + 5 + rand.nextDouble();
+        double consumptionMile = rand.nextInt(10) + 5 + rand.nextDouble();
         double co2Mile = consumptionMile * 24;
         boolean geoChip = rand.nextBoolean();
         boolean rapidSteeringWheelMovement = rand.nextBoolean();
