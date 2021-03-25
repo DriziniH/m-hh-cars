@@ -26,8 +26,3 @@ buildNumber.properties
 .factorypath
 .project
 .vscode/
-
-#
-# Project
-#
-src/main/resources/aws.properties
