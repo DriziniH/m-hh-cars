@@ -10,10 +10,12 @@ import cars.utility.ConfigLoader;
 public class Main {
     public static void main(String[] args) {
 
-        Properties kafkaProperties = null;
+        Properties kafkaPropertiesEU = null;
+        Properties kafkaPropertiesUSA = null;
 
         try {
-            kafkaProperties = (new ConfigLoader()).getProperties("kafka.properties");
+            kafkaPropertiesEU = (new ConfigLoader()).getProperties("kafka-eu.properties");
+            kafkaPropertiesUSA = (new ConfigLoader()).getProperties("kafka-usa.properties");
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
@@ -22,15 +24,15 @@ public class Main {
         ExecutorService executor = Executors.newCachedThreadPool();
 
         // EU
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 100; i++) {
             String randId = UUID.randomUUID().toString();
-            executor.execute(new ProducerKafka(kafkaProperties, "car-eu", "eu", randId));
+            executor.execute(new ProducerKafka(kafkaPropertiesEU, "eu", randId));
         }
 
         // USA
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 0; i++) {
             String randId = UUID.randomUUID().toString();
-            executor.execute(new ProducerKafka(kafkaProperties, "car-usa", "usa", randId));
+            executor.execute(new ProducerKafka(kafkaPropertiesUSA, "usa", randId));
         }
 
     }
