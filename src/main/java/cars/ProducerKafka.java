@@ -1,5 +1,6 @@
 package cars;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -21,15 +22,14 @@ public class ProducerKafka implements Runnable {
     String region;
     boolean active = true;
     KafkaProducer<byte[], byte[]> producer;
-    ProducerRecord<byte[], byte[]> producerRecord;
     DataGenerator dataGenerator = new DataGenerator();
 
-    public ProducerKafka(Properties properties, String topic, String region, String id) {
-        this.properties = properties;
-        this.topic = topic;
+    public ProducerKafka(Properties kafkaProperties, String region, String id) {
+        this.properties = kafkaProperties;
+        this.topic = kafkaProperties.getProperty("topic");
         this.id = id;
         this.region = region;
-        this.producer = new KafkaProducer<byte[], byte[]>(properties);
+        this.producer = new KafkaProducer<byte[], byte[]>(kafkaProperties);
     }
 
     public void terminateThread() {
@@ -45,7 +45,7 @@ public class ProducerKafka implements Runnable {
 
         System.out.println("Started kafka producer thread. Region " + this.region + " | Topic: " + this.topic);
 
-        Object car = new Object();
+        Car car;
 
         // Initialize random consistent values for each car
         Random rand = new Random();
@@ -54,29 +54,36 @@ public class ProducerKafka implements Runnable {
         String fuel = Arrays.asList("gasonline", "diesel", "gas", "electric").get(rand.nextInt(4));
 
         switch (this.region.toLowerCase()) {
-            case "eu":
-                car = new CarEU(id, model, labels, fuel);
-                break;
-            case "usa":
-                car = new CarUSA(id, model, labels, fuel);
-                break;
-            default:
-                System.out.println("Region not available: " + region);
-                return;
+        case "eu":
+            car = new CarEU(id, model, labels, fuel);
+            break;
+        case "usa":
+            car = new CarUSA(id, model, labels, fuel);
+            break;
+        default:
+            System.out.println("Region not available: " + region);
+            return;
         }
 
+        List<ProducerRecord<byte[], byte[]>> recordsToSend = new ArrayList<ProducerRecord<byte[], byte[]>>();
+        List<ProducerRecord<byte[], byte[]>> recordsToRemove = new ArrayList<ProducerRecord<byte[], byte[]>>();
         while (active) {
 
-            String data = dataGenerator.getCarData(car);
+            String carDataJson = dataGenerator.getCarData(car);
+            recordsToSend.add(new ProducerRecord<byte[], byte[]>(this.topic, carDataJson.getBytes()));
 
-            this.producerRecord = new ProducerRecord<byte[], byte[]>(this.topic, data.getBytes());
-            producer.send(producerRecord);
+            for (ProducerRecord<byte[], byte[]> producerRecord : recordsToSend) {
+                producer.send(producerRecord, (metadata, exception) -> {
+                    if (metadata == null) {
+                        exception.printStackTrace();
+                    }else{
+                        recordsToRemove.add(producerRecord);
+                    }
+                });
+            }
 
-            producer.send(producerRecord, (metadata, exception) -> {
-                if (metadata == null) {
-                    exception.printStackTrace();
-                }
-            });
+            recordsToSend.removeAll(recordsToRemove);
+            recordsToRemove.clear();
 
             try {
                 Thread.sleep(1000);
