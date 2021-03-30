@@ -11,7 +11,7 @@ import cars.data.*;
 
 public class DataGenerator {
 
-    public String getCarData(Object car) {
+    public String getCarData(Car car) {
         /**
          * Calls depending on region the method to create a data object for a car and
          * uses ObjectMapper to create and return a json representation string of that
@@ -19,11 +19,10 @@ public class DataGenerator {
          */
 
         try {
+            car = tweekValues(car);
             if (car.getClass() == CarEU.class) {
-                car = driveInDirectionEU((CarEU) car);
                 return generateRandomDataEU((CarEU) car);
             } else if (car.getClass() == CarUSA.class) {
-                car = driveInDirectionUSA((CarUSA) car);
                 return generateRandomDataUSA((CarUSA) car);
             } else {
                 return "";
@@ -35,24 +34,20 @@ public class DataGenerator {
         }
     }
 
-    public CarEU driveInDirectionEU(CarEU carEu) {
+    public Car tweekValues(Car car) {
         /**
-         * Generates random double in given direction
+         * Generates random double in given direction and low probability to change
+         * geochip to false
          */
-        double lat = carEu.lat + carEu.dirX * 0.001;
-        double lon = carEu.lon + carEu.dirY * 0.001;
-        carEu.setPos(lat, lon);
-        return carEu;
-    }
+        double lat = car.lat + car.dirX * 0.001;
+        double lon = car.lon + car.dirY * 0.001;
+        car.setPos(lat, lon);
 
-    public CarUSA driveInDirectionUSA(CarUSA carUsa) {
-        /**
-         * Generates random double in given direction
-         */
-        double lat = carUsa.lat + carUsa.dirX * 0.001;
-        double lon = carUsa.lon + carUsa.dirY * 0.001;
-        carUsa.setPos(lat, lon);
-        return carUsa;
+        if (car.geoChip) {
+            car.geoChip = (new Random()).nextFloat() > 0.005;
+        }
+
+        return car;
     }
 
     public String generateRandomDataEU(CarEU carEu) throws JsonProcessingException {
@@ -101,7 +96,6 @@ public class DataGenerator {
 
         double consumptionKm = rand.nextInt(10) + 5 + rand.nextDouble();
         double co2Km = consumptionKm * 24;
-        boolean geoChip = rand.nextBoolean();
         boolean rapidSteeringWheelMovement = rand.nextBoolean();
         boolean drivingOnMarkers = rand.nextBoolean();
 
@@ -109,7 +103,7 @@ public class DataGenerator {
                 breakFluidLevel, fuelLevel, engineWarning, breaksWarning, forwardCollisionWarning, airbag, serviceCall,
                 tirePressure, lightingSystemFailure, temperatureEngine, temperatureInside, temperatureOutside,
                 temperatureBreaks, temperatureTires, breakPower, breakActive, gasPower, gasActive, light, acc, kmh, rpm,
-                oxygenLevel, infotainmentOn, infotainmentService, infotainmentVolume, consumptionKm, co2Km, geoChip,
+                oxygenLevel, infotainmentOn, infotainmentService, infotainmentVolume, consumptionKm, co2Km,
                 rapidSteeringWheelMovement, drivingOnMarkers
 
         );
@@ -164,7 +158,6 @@ public class DataGenerator {
 
         double consumptionMile = rand.nextInt(10) + 5 + rand.nextDouble();
         double co2Mile = consumptionMile * 24;
-        boolean geoChip = rand.nextBoolean();
         boolean rapidSteeringWheelMovement = rand.nextBoolean();
         boolean drivingOnMarkers = rand.nextBoolean();
 
@@ -172,7 +165,7 @@ public class DataGenerator {
                 breakFluidLevel, fuelLevel, engineWarning, breaksWarning, forwardCollisionWarning, airbag, serviceCall,
                 tirePressure, lightingSystemFailure, temperatureEngine, temperatureInside, temperatureOutside,
                 temperatureBreaks, temperatureTires, breakPower, breakActive, gasPower, gasActive, light, acc, mph, rpm,
-                oxygenLevel, infotainmentOn, infotainmentService, infotainmentVolume, consumptionMile, co2Mile, geoChip,
+                oxygenLevel, infotainmentOn, infotainmentService, infotainmentVolume, consumptionMile, co2Mile,
                 rapidSteeringWheelMovement, drivingOnMarkers);
 
         return objectMapper.writeValueAsString(carUsa);

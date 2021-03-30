@@ -38,6 +38,7 @@ public class CarEU extends Car implements Serializable {
         this.mufflerHealth = rand.nextInt(100) + rand.nextDouble();
         this.gearsHealth = rand.nextInt(100) + rand.nextDouble();
         this.batteryHealth = rand.nextInt(100) + rand.nextDouble();
+        this.geoChip = rand.nextBoolean();
     };
 
     public void setValues(double kilometerTotal, double kilometerStart, double estimatedRange, double travelTimeTotal,
@@ -47,7 +48,7 @@ public class CarEU extends Car implements Serializable {
             double temperatureOutside, double temperatureBreaks, double temperatureTires, double breakPower,
             boolean breakActive, double gasPower, boolean gasActive, boolean light, boolean acc, double kmh, double rpm,
             double oxygenLevel, boolean infotainmentOn, String infotainmentService, double infotainmentVolume,
-            double consumptionKm, double co2Km, boolean geoChip, boolean rapidSteeringWheelMovement,
+            double consumptionKm, double co2Km, boolean rapidSteeringWheelMovement,
             boolean drivingOnMarkers) {
 
         this.kilometerTotal = kilometerTotal;
@@ -84,7 +85,6 @@ public class CarEU extends Car implements Serializable {
         this.infotainmentVolume = infotainmentVolume;
         this.consumptionKm = consumptionKm;
         this.co2Km = co2Km;
-        this.geoChip = geoChip;
         this.rapidSteeringWheelMovement = rapidSteeringWheelMovement;
         this.drivingOnMarkers = drivingOnMarkers;
     }

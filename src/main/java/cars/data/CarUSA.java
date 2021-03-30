@@ -35,6 +35,7 @@ public class CarUSA extends Car implements Serializable {
         this.mufflerHealth = rand.nextInt(100) + rand.nextDouble();
         this.gearsHealth = rand.nextInt(100) + rand.nextDouble();
         this.batteryHealth = rand.nextInt(100) + rand.nextDouble();
+        this.geoChip = rand.nextBoolean();
     };
 
     @Override
@@ -50,7 +51,7 @@ public class CarUSA extends Car implements Serializable {
             double temperatureOutside, double temperatureBreaks, double temperatureTires, double breakPower,
             boolean breakActive, double gasPower, boolean gasActive, boolean light, boolean acc, double mph, double rpm,
             double oxygenLevel, boolean infotainmentOn, String infotainmentService, double infotainmentVolume,
-            double consumptionMile, double co2Mile, boolean geoChip, boolean rapidSteeringWheelMovement,
+            double consumptionMile, double co2Mile, boolean rapidSteeringWheelMovement,
             boolean drivingOnMarkers) {
 
         this.mileageTotal = mileageTotal;
@@ -87,7 +88,6 @@ public class CarUSA extends Car implements Serializable {
         this.infotainmentVolume = infotainmentVolume;
         this.consumptionMile = consumptionMile;
         this.co2Mile = co2Mile;
-        this.geoChip = geoChip;
         this.rapidSteeringWheelMovement = rapidSteeringWheelMovement;
         this.drivingOnMarkers = drivingOnMarkers;
     }
