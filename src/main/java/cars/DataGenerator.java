@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.Random;
 import java.util.Arrays;
 
@@ -47,6 +48,13 @@ public class DataGenerator {
             car.geoChip = (new Random()).nextFloat() > 0.005;
         }
 
+        car.mufflerHealth *= 0.999;
+        car.tireHealth *= 0.999;
+        car.gearsHealth *= 0.999;
+        car.breaksHealth *= 0.999;
+        car.engineHealth *= 0.999;
+        car.batteryHealth *= 0.999;
+
         return car;
     }
 
@@ -86,7 +94,12 @@ public class DataGenerator {
         boolean gasActive = rand.nextBoolean();
         boolean light = rand.nextBoolean();
         boolean acc = rand.nextBoolean();
+
         double kmh = rand.nextInt(200) + rand.nextDouble();
+        if ((new Random()).nextFloat() < 0.2) { // 20% change car stopping
+            kmh = 0.0;
+        }
+
         double rpm = rand.nextInt(6000) + rand.nextDouble();
         double oxygenLevel = rand.nextInt(100) + rand.nextDouble();
         boolean infotainmentOn = rand.nextBoolean();
@@ -148,7 +161,12 @@ public class DataGenerator {
         boolean gasActive = rand.nextBoolean();
         boolean light = rand.nextBoolean();
         boolean acc = rand.nextBoolean();
+
         double mph = rand.nextInt(200) + rand.nextDouble();
+        if ((new Random()).nextFloat() < 0.2) { // 20% change car stopping
+            mph = 0.0;
+        }
+
         double rpm = rand.nextInt(6000) + rand.nextDouble();
         double oxygenLevel = rand.nextInt(100) + rand.nextDouble();
         boolean infotainmentOn = rand.nextBoolean();
