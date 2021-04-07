@@ -22,7 +22,8 @@ public class Main {
         }
 
         ExecutorService executor = Executors.newCachedThreadPool();
-
+        executor.execute(new ProducerKafka(kafkaPropertiesEU, "eu", "300b0247-632d-4401-97e7-f86f5fb7e8d3"));
+        
         // EU
         for (int i = 0; i < 100; i++) {
             String randId = UUID.randomUUID().toString();
