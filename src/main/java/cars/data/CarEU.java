@@ -32,13 +32,13 @@ public class CarEU extends Car implements Serializable {
         this.lon = rand.nextInt(32) - 2 + rand.nextDouble();
 
         this.drugged = rand.nextBoolean();
-        this.breaksHealth = rand.nextInt(100) + rand.nextDouble();
-        this.engineHealth = rand.nextInt(100) + rand.nextDouble();
-        this.tireHealth = rand.nextInt(100) + rand.nextDouble();
-        this.mufflerHealth = rand.nextInt(100) + rand.nextDouble();
-        this.gearsHealth = rand.nextInt(100) + rand.nextDouble();
-        this.batteryHealth = rand.nextInt(100) + rand.nextDouble();
-        this.geoChip = rand.nextBoolean();
+        this.breaksHealth = rand.nextInt(90) + 10 + rand.nextDouble();
+        this.engineHealth = rand.nextInt(90)+ 10 + rand.nextDouble();
+        this.tireHealth = rand.nextInt(90)+ 10 + rand.nextDouble();
+        this.mufflerHealth = rand.nextInt(90)+ 10 + rand.nextDouble();
+        this.gearsHealth = rand.nextInt(90)+ 10 + rand.nextDouble();
+        this.batteryHealth = rand.nextInt(90)+ 10 + rand.nextDouble();
+        this.geoChip = true; rand.nextBoolean(); 
     };
 
     public void setValues(double kilometerTotal, double kilometerStart, double estimatedRange, double travelTimeTotal,

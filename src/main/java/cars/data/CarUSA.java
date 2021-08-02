@@ -29,12 +29,12 @@ public class CarUSA extends Car implements Serializable {
         this.lon = rand.nextInt(45) - 123 + rand.nextDouble();
 
         this.drugged = rand.nextBoolean();
-        this.breaksHealth = rand.nextInt(100) + rand.nextDouble();
-        this.engineHealth = rand.nextInt(100) + rand.nextDouble();
-        this.tireHealth = rand.nextInt(100) + rand.nextDouble();
-        this.mufflerHealth = rand.nextInt(100) + rand.nextDouble();
-        this.gearsHealth = rand.nextInt(100) + rand.nextDouble();
-        this.batteryHealth = rand.nextInt(100) + rand.nextDouble();
+        this.breaksHealth = rand.nextInt(90) + 10 + rand.nextDouble();
+        this.engineHealth = rand.nextInt(90) + 10 + rand.nextDouble();
+        this.tireHealth = rand.nextInt(90) + 10 + rand.nextDouble();
+        this.mufflerHealth = rand.nextInt(90) + 10 + rand.nextDouble();
+        this.gearsHealth = rand.nextInt(90) + 10 + rand.nextDouble();
+        this.batteryHealth = rand.nextInt(90) + 10 + rand.nextDouble();
         this.geoChip = rand.nextBoolean();
     };
 
@@ -51,8 +51,7 @@ public class CarUSA extends Car implements Serializable {
             double temperatureOutside, double temperatureBreaks, double temperatureTires, double breakPower,
             boolean breakActive, double gasPower, boolean gasActive, boolean light, boolean acc, double mph, double rpm,
             double oxygenLevel, boolean infotainmentOn, String infotainmentService, double infotainmentVolume,
-            double consumptionMile, double co2Mile, boolean rapidSteeringWheelMovement,
-            boolean drivingOnMarkers) {
+            double consumptionMile, double co2Mile, boolean rapidSteeringWheelMovement, boolean drivingOnMarkers) {
 
         this.mileageTotal = mileageTotal;
         this.mileageStart = mileageStart;
