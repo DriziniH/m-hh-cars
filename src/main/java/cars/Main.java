@@ -1,5 +1,6 @@
 package cars;
 
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -10,30 +11,29 @@ import cars.utility.ConfigLoader;
 public class Main {
     public static void main(String[] args) {
 
-        Properties kafkaPropertiesEU = null;
-        Properties kafkaPropertiesUSA = null;
+        Properties kafkaProperties = null;
 
         try {
-            kafkaPropertiesEU = (new ConfigLoader()).getProperties("kafka-eu.properties");
-            kafkaPropertiesUSA = (new ConfigLoader()).getProperties("kafka-usa.properties");
+            kafkaProperties = (new ConfigLoader()).getProperties("kafka.properties");
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
 
         ExecutorService executor = Executors.newCachedThreadPool();
-        executor.execute(new ProducerKafka(kafkaPropertiesEU, "eu", "300b0247-632d-4401-97e7-f86f5fb7e8d3"));
+        executor.execute(new ProducerKafka(kafkaProperties, "eu", "300b0247-632d-4401-97e7-f86f5fb7e8d3", false));
+        executor.execute(new ConsumerKafka(kafkaProperties, Arrays.asList("car-analysis"),"300b0247-632d-4401-97e7-f86f5fb7e8d3", true));
         
         // EU
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 20; i++) {
             String randId = UUID.randomUUID().toString();
-            executor.execute(new ProducerKafka(kafkaPropertiesEU, "eu", randId));
+            executor.execute(new ProducerKafka(kafkaProperties, "eu", randId, false));
         }
 
         // USA
-        for (int i = 0; i < 0; i++) {
+        for (int i = 0; i < 20; i++) {
             String randId = UUID.randomUUID().toString();
-            executor.execute(new ProducerKafka(kafkaPropertiesUSA, "usa", randId));
+            executor.execute(new ProducerKafka(kafkaProperties, "usa", randId, false));
         }
 
     }
