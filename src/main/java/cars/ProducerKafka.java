@@ -23,13 +23,15 @@ public class ProducerKafka implements Runnable {
     boolean active = true;
     KafkaProducer<byte[], byte[]> producer;
     DataGenerator dataGenerator = new DataGenerator();
+    Boolean print;
 
-    public ProducerKafka(Properties kafkaProperties, String region, String id) {
+    public ProducerKafka(Properties kafkaProperties, String region, String id, Boolean print) {
         this.properties = kafkaProperties;
         this.topic = kafkaProperties.getProperty("topic");
         this.id = id;
         this.region = region;
         this.producer = new KafkaProducer<byte[], byte[]>(kafkaProperties);
+        this.print = print;
     }
 
     public void terminateThread() {
@@ -49,9 +51,9 @@ public class ProducerKafka implements Runnable {
 
         // Initialize random consistent values for each car
         Random rand = new Random();
-        String model = Arrays.asList("A-Klasse", "B-Klasse", "C-Klasse", "E-Klasse", "G-Klasse").get(rand.nextInt(5));
+        String model = Arrays.asList("A", "B", "C", "D", "E").get(rand.nextInt(5));
         List<String> labels = Arrays.asList(model, "Benzer");
-        String fuel = Arrays.asList("gasonline", "diesel", "gas", "electric").get(rand.nextInt(4));
+        String fuel = Arrays.asList("gas", "diesel", "hybrid","electric").get(rand.nextInt(4));
 
         switch (this.region.toLowerCase()) {
         case "eu":
@@ -77,6 +79,9 @@ public class ProducerKafka implements Runnable {
                     if (metadata == null) {
                         exception.printStackTrace();
                     }else{
+                        if(print){
+                            System.out.println(carDataJson);
+                        }
                         recordsToRemove.add(producerRecord);
                     }
                 });
