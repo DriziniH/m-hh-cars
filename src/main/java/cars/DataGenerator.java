@@ -1,5 +1,5 @@
 package cars;
-
+ 
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -45,15 +45,15 @@ public class DataGenerator {
         car.setPos(lat, lon);
 
         if (car.geoChip) {
-            car.geoChip = (new Random()).nextFloat() > 0.005;
+            car.geoChip = (new Random()).nextFloat() > 0.8;//> 0.005;
         }
 
-        car.mufflerHealth *= 0.999;
-        car.tireHealth *= 0.999;
-        car.gearsHealth *= 0.999;
-        car.breaksHealth *= 0.999;
-        car.engineHealth *= 0.999;
-        car.batteryHealth *= 0.999;
+        car.mufflerHealth *= 0.99999999999;
+        car.tireHealth *= 0.99999999999;
+        car.gearsHealth *= 0.99999999999;
+        car.breaksHealth *= 0.99999999999;
+        car.engineHealth *= 0.99999999999;
+        car.batteryHealth *= 0.99999999999;
 
         return car;
     }
